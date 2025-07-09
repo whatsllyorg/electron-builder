@@ -213,7 +213,7 @@ async function importCerts(keychainFile: string, paths: Array<string>, keyPasswo
   }
 }
 
-export async function sign(opts: SignOptions): Promise<void> {
+export function sign(opts: SignOptions): Promise<void> {
   return retry(() => signAsync(opts), 3, 5000, 5000)
 }
 
