@@ -11,7 +11,7 @@
     "install-app-deps": "./install-app-deps.js"
   },
   "scripts": {
-    "prepare": "tsc"
+    "prepare": "cd ../builder-util-runtime && npm run prepare && cd ../builder-util && npm run prepare && cd ../electron-publish && npm run prepare && cd ../app-builder-lib && npm run prepare && cd ../dmg-builder && npm run prepare && tsc"
   },
   "repository": {
     "type": "git",
@@ -54,12 +54,12 @@
   "bugs": "https://github.com/electron-userland/electron-builder/issues",
   "homepage": "https://github.com/electron-userland/electron-builder",
   "dependencies": {
-    "app-builder-lib": "workspace:*",
-    "builder-util": "workspace:*",
-    "builder-util-runtime": "workspace:*",
+    "app-builder-lib": "file:../app-builder-lib",
+    "builder-util": "file:../builder-util",
+    "builder-util-runtime": "file:../builder-util-runtime",
     "chalk": "^4.1.2",
     "ci-info": "^4.2.0",
-    "dmg-builder": "workspace:*",
+    "dmg-builder": "file:../dmg-builder",
     "fs-extra": "^10.1.0",
     "lazy-val": "^1.0.5",
     "simple-update-notifier": "2.0.0",

@@ -17,7 +17,7 @@ export async function signWindows(options: WindowsSignOptions, packager: WinPack
     log.info({ path: log.filePath(options.path) }, "signing with signtool.exe")
   }
   const packageManager = await packager.signingManager.value
-  return signWithRetry(async () => packageManager.signFile(options))
+  return signWithRetry(() => packageManager.signFile(options))
 }
 
 function signWithRetry(signer: () => Promise<boolean>): Promise<boolean> {
