@@ -75,7 +75,7 @@ export class MacPackager extends PlatformPackager<MacConfiguration> {
     return new AppInfo(this.info, this.platformSpecificBuildOptions.bundleVersion, this.platformSpecificBuildOptions, true)
   }
 
-  async getIconPath(): Promise<string | null> {
+  getIconPath(): Promise<string | null> {
     return this._iconPath.value
   }
 

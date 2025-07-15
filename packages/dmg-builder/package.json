@@ -11,14 +11,17 @@
 	},
 	"bugs": "https://github.com/electron-userland/electron-builder/issues",
 	"homepage": "https://github.com/electron-userland/electron-builder",
-	"files": [
-		"out",
-		"templates",
-		"vendor"
-	],
+	  "files": [
+    "out",
+    "templates",
+    "vendor"
+  ],
+  "scripts": {
+    "prepare": "cd ../builder-util-runtime && npm run prepare && cd ../builder-util && npm run prepare && cd ../electron-publish && npm run prepare && cd ../app-builder-lib && npm run prepare && tsc"
+  },
 	"dependencies": {
-		"app-builder-lib": "workspace:*",
-		"builder-util": "workspace:*",
+		"app-builder-lib": "file:../app-builder-lib",
+		"builder-util": "file:../builder-util",
 		"fs-extra": "^10.1.0",
 		"iconv-lite": "^0.6.2",
 		"js-yaml": "^4.1.0"

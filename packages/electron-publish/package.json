@@ -14,10 +14,13 @@
   "files": [
     "out"
   ],
+  "scripts": {
+    "prepare": "cd ../builder-util-runtime && npm run prepare && cd ../builder-util && npm run prepare && tsc"
+  },
   "dependencies": {
     "@types/fs-extra": "^9.0.11",
-    "builder-util": "workspace:*",
-    "builder-util-runtime": "workspace:*",
+    "builder-util": "file:../builder-util",
+    "builder-util-runtime": "file:../builder-util-runtime",
     "chalk": "^4.1.2",
     "form-data": "^4.0.0",
     "fs-extra": "^10.1.0",

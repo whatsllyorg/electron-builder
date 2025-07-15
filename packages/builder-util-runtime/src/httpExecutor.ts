@@ -318,7 +318,7 @@ Please double check that your authentication token is correct. Due to security r
   static prepareRedirectUrlOptions(redirectUrl: string, options: RequestOptions): RequestOptions {
     const newOptions = configureRequestOptionsFromUrl(redirectUrl, { ...options })
     const headers = newOptions.headers
-    if (headers?.authorization) {
+    if (headers && typeof headers === "object" && !Array.isArray(headers) && "authorization" in headers) {
       const parsedNewUrl = parseUrl(redirectUrl, options)
       if (parsedNewUrl.hostname.endsWith(".amazonaws.com") || parsedNewUrl.searchParams.has("X-Amz-Credential")) {
         delete headers.authorization
@@ -504,11 +504,11 @@ export function configureRequestOptions(options: RequestOptions, token?: string 
     options.method = method
   }
 
-  options.headers = { ...options.headers }
+  options.headers = { ...options.headers } as OutgoingHttpHeaders
   const headers = options.headers
 
   if (token != null) {
-    ;(headers as any).authorization = token.startsWith("Basic") || token.startsWith("Bearer") ? token : `token ${token}`
+    headers.authorization = token.startsWith("Basic") || token.startsWith("Bearer") ? token : `token ${token}`
   }
   if (headers["User-Agent"] == null) {
     headers["User-Agent"] = "electron-builder"
