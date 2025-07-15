@@ -75,6 +75,9 @@ export async function computeElectronVersion(projectDir: string): Promise<string
         accept: "application/xml, application/atom+xml, text/xml, */*",
       },
     })
+    if (feedXml == null) {
+      throw new Error("Unable to fetch electron nightlies feed")
+    }
     const feed = parseXml(feedXml)
     const latestRelease = feed.element("entry", false, `No published versions on GitHub`)
     const v = /\/tag\/v?([^/]+)$/.exec(latestRelease.element("link").attribute("href"))![1]
@@ -82,15 +85,17 @@ export async function computeElectronVersion(projectDir: string): Promise<string
   } else if (dependency?.version === "latest") {
     log.warn('Electron version is set to "latest", but it is recommended to set it to some more restricted version range.')
     try {
-      const releaseInfo = JSON.parse(
-        await httpExecutor.request({
-          hostname: "github.com",
-          path: `/electron/${dependency.name === "electron-nightly" ? "nightlies" : "electron"}/releases/latest`,
-          headers: {
-            accept: "application/json",
-          },
-        })
-      )
+      const releaseResponse = await httpExecutor.request({
+        hostname: "github.com",
+        path: `/electron/${dependency.name === "electron-nightly" ? "nightlies" : "electron"}/releases/latest`,
+        headers: {
+          accept: "application/json",
+        },
+      })
+      if (releaseResponse == null) {
+        throw new Error("Unable to fetch latest electron release info")
+      }
+      const releaseInfo = JSON.parse(releaseResponse)
       const version = releaseInfo.tag_name.startsWith("v") ? releaseInfo.tag_name.substring(1) : releaseInfo.tag_name
       log.info({ version }, `resolve ${dependency.name}@${dependency.version}`)
       return version

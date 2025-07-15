@@ -26,7 +26,6 @@ export function createNsisWebDifferentialUpdateInfo(artifactPath: string, packag
       ...packageFileInfo,
       path: file,
       // https://github.com/electron-userland/electron-builder/issues/2583
-      file,
     }
   }
   return { packages }
