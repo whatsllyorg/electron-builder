@@ -10,6 +10,9 @@
     "electron-builder": "./cli.js",
     "install-app-deps": "./install-app-deps.js"
   },
+  "scripts": {
+    "prepare": "tsc"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/electron-userland/electron-builder.git",

@@ -11,11 +11,14 @@
 	},
 	"bugs": "https://github.com/electron-userland/electron-builder/issues",
 	"homepage": "https://github.com/electron-userland/electron-builder",
-	"files": [
-		"out",
-		"templates",
-		"vendor"
-	],
+	  "files": [
+    "out",
+    "templates",
+    "vendor"
+  ],
+  "scripts": {
+    "prepare": "tsc"
+  },
 	"dependencies": {
 		"app-builder-lib": "workspace:*",
 		"builder-util": "workspace:*",

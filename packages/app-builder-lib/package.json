@@ -9,6 +9,9 @@
     "scheme.json",
     "certs/root_certs.keychain"
   ],
+  "scripts": {
+    "prepare": "tsc"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/electron-userland/electron-builder.git",
